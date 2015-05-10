@@ -2,12 +2,9 @@ package com.example.casuneanuandrei.joc_v22;
 
 import android.graphics.Bitmap;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
 public class Image {
     private Bitmap bitmap;
-    int w, h;
+    private int w, h;
 
     public Image(Bitmap bitmap){
         this.bitmap = bitmap;

@@ -23,8 +23,8 @@ public class Buton {
         w = image.getW();
         h = image.getH();
 
-        this.x = x;
-        this.y = y;
+        this.x = Scaler.scale(x);
+        this.y = Scaler.scale(y);
 
         xc = this.x + w/2;
         yc = this.y + h/2;

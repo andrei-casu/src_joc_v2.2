@@ -47,7 +47,11 @@ public class Graphics {
     public Image openImage(String nume){
         Image imagine = null;
         try {
-            imagine = new Image(BitmapFactory.decodeStream(context.getAssets().open(nume)));
+            Bitmap aux = BitmapFactory.decodeStream(context.getAssets().open(nume));
+            int w = Scaler.scale(aux.getWidth());
+            int h = Scaler.scale(aux.getHeight());
+            Bitmap fin = Bitmap.createScaledBitmap(aux, w, h, false);
+            imagine = new Image(fin);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -25,7 +25,7 @@ public class Meniu extends Screen{
         this.context = context;
 
         butonStart = new Buton(framebuffer, "poze/meniu_buton.png", 0, 0, context);
-        butonCredits = new Buton(framebuffer, "poze/meniu_buton.png", 0, 30, context);
+        butonCredits = new Buton(framebuffer, "poze/meniu_buton.png", 0, 100, context);
     }
 
     public void update(){

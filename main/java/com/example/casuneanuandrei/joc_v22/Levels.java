@@ -12,12 +12,15 @@ public class Levels extends Screen {
     private Image background;
     private Bitmap framebuffer;
     private Context context;
+    private Buton level1;
 
     public Levels(Bitmap framebuffer, Context context){
         super();
 
         this.framebuffer = framebuffer;
         this.context = context;
+
+        level1 = new Buton(framebuffer, "poze/butonStart.png", 200, 200, context);
 
         graphics = new Graphics(framebuffer, context);
         background = graphics.openImage("poze/backgroundLevels.png");

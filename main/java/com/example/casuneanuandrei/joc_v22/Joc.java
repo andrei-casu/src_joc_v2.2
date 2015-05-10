@@ -32,6 +32,8 @@ public class Joc extends Activity{
         Ecran.w = size.x;
         Ecran.h = size.y;
 
+        Scaler.rap = (double) Ecran.h / 1080;
+
         framebuffer = Bitmap.createBitmap(Ecran.w, Ecran.h, Bitmap.Config.ARGB_8888);
 
         meniu = new Meniu(framebuffer, this);

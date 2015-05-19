@@ -12,15 +12,14 @@ import android.graphics.Rect;
 import java.io.IOException;
 import java.io.InputStream;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
 public class Graphics {
     Canvas canvas;
     Paint paint;
     Rect srcRect, dstRect;
     Context context;
     Bitmap framebuffer;
+    boolean scalable = true;
+    boolean fixed = false;
 
     public Graphics(Bitmap framebuffer, Context context){
         this.canvas = new Canvas(framebuffer);
@@ -32,6 +31,14 @@ public class Graphics {
         canvas.setBitmap(this.framebuffer);
     }
 
+    public void setScalable(boolean scalable) {
+        this.scalable = scalable;
+    }
+
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
+    }
+
     public void resetCanvas(){
         canvas.drawColor(Color.BLACK);
     }
@@ -39,7 +46,25 @@ public class Graphics {
     public void drawImage(Image image, int x, int y, int xs, int ys, int ws, int hs){
         srcRect.set(xs, ys, xs+ws, ys+hs);
 
-        dstRect.set(x, y, x+ws, y+hs);
+        int xaux, yaux;
+
+        if (fixed){
+            xaux = x;
+            yaux = y;
+        }
+        else {
+            xaux = (int) (x + Offset.valuex);
+            yaux = (int) (y + Offset.valuey);
+        }
+
+        if (scalable) {
+            xaux *= Offset.scale;
+            yaux *= Offset.scale;
+            dstRect.set((int)xaux, (int)yaux, (int)(xaux+ws*Offset.scale), (int)(yaux+hs*Offset.scale));
+        }
+        else {
+            dstRect.set((int)xaux, (int)yaux, (int)(xaux), (int)(yaux));
+        }
 
         canvas.drawBitmap(image.getBitmap(), srcRect, dstRect, null);
     }

@@ -1,18 +1,19 @@
 package com.example.casuneanuandrei.joc_v22;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.view.MotionEvent;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
-public abstract class Screen{
-    private Graphics graphics;
+public abstract class Sageata {
 
-    public Screen(){
-    }
+    protected Bitmap framebuffer;
+    protected Context context;
 
-    public Graphics getGraphics() {
-        return graphics;
+    protected int xstart, ystart;
+    protected Inamic inamic;
+
+    public Sageata(){
+
     }
 
     public void paint(){
@@ -26,5 +27,4 @@ public abstract class Screen{
     protected abstract void onDraw();
     protected abstract int onTouch(MotionEvent event);
     protected abstract void onUpdate();
-
 }

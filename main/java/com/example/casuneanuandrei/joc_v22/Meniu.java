@@ -6,16 +6,14 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
 public class Meniu extends Screen{
     private Graphics graphics;
     private Image background;
     private Bitmap framebuffer;
+    private Context context;
+
     private Buton butonStart;
     private Buton butonCredits;
-    private Context context;
 
     public Meniu(Bitmap framebuffer, Context context){
         super();
@@ -26,10 +24,6 @@ public class Meniu extends Screen{
 
         butonStart = new Buton(framebuffer, "poze/meniu_buton.png", 0, 0, context);
         butonCredits = new Buton(framebuffer, "poze/meniu_buton.png", 0, 100, context);
-    }
-
-    public void update(){
-        //graphics.drawImage(background, 0, 0, 0, 0, background.getW(), background.getH());
     }
 
     @Override
@@ -52,5 +46,10 @@ public class Meniu extends Screen{
                 return EventTypes.SCHIMBA_CREDITS;
         }
         return EventTypes.NONE_OF_YOUR_B;
+    }
+
+    @Override
+    protected void onUpdate() {
+
     }
 }

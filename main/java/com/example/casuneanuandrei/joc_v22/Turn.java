@@ -2,17 +2,11 @@ package com.example.casuneanuandrei.joc_v22;
 
 import android.view.MotionEvent;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
-public abstract class Screen{
+public abstract class Turn {
     private Graphics graphics;
 
-    public Screen(){
-    }
+    public Turn(){
 
-    public Graphics getGraphics() {
-        return graphics;
     }
 
     public void paint(){
@@ -26,5 +20,4 @@ public abstract class Screen{
     protected abstract void onDraw();
     protected abstract int onTouch(MotionEvent event);
     protected abstract void onUpdate();
-
 }

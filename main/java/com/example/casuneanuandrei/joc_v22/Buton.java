@@ -14,6 +14,7 @@ public class Buton {
     private int w, h;
     private int x, y;
     private int xc, yc;
+    private boolean fixed;
 
     public Buton(Bitmap framebuffer, String nume, int x, int y, Context context)
     {
@@ -30,8 +31,19 @@ public class Buton {
         yc = this.y + h/2;
     }
 
+    public void setFixed(boolean fixed) {
+        this.fixed = fixed;
+    }
+
+    protected void onDraw(){
+        if (fixed == true)
+            graphics.drawImage(image, x, y, 0, 0, w, h);
+        else
+            graphics.drawImage(image, (int) (x + Offset.valuex), y, 0, 0, w, h);
+    }
+
     public void paint(){
-        graphics.drawImage(image, x, y, 0, 0, w, h);
+        onDraw();
     }
 
     public boolean push(int x, int y) {

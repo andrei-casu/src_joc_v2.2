@@ -7,9 +7,6 @@ import android.graphics.Rect;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
-/**
- * Created by casuneanuandrei on 5/9/15.
- */
 public class Renderer extends SurfaceView{
     private boolean running;
     private Joc joc;
@@ -26,7 +23,6 @@ public class Renderer extends SurfaceView{
             while (running){
                 if(!surfaceHolder.getSurface().isValid())
                     continue;
-
 
                 frame = surfaceHolder.lockCanvas();
                 joc.paint();

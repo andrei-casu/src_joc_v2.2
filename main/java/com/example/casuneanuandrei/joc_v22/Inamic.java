@@ -4,16 +4,19 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.MotionEvent;
 
-public abstract class Inamic {
+public abstract class Inamic{
 
     protected Bitmap framebuffer;
     protected Context context;
 
     protected int x, y;
+    protected int xbaza, ybaza;
     protected int w, h;
     protected int viata;
     protected int atac;
     protected int armour, magic_armour;
+    protected int sumaCastig;
+    protected boolean dead = false;
 
     protected Drum drum;
     protected int viteza;
@@ -23,6 +26,10 @@ public abstract class Inamic {
     protected int delay;
 
     public Inamic(){
+    }
+
+    public void setDead(boolean dead) {
+        this.dead = dead;
     }
 
     public void paint(){
@@ -39,6 +46,17 @@ public abstract class Inamic {
 
     public void setX(int x) {
         this.x = x;
+        xbaza = x + w/2;
+    }
+
+    public void setXbaza(int x){
+        xbaza = x;
+        this.x = xbaza - w/2;
+    }
+
+    public void setYbaza(int y){
+        ybaza = y;
+        this.y = ybaza - h;
     }
 
     public int getX() {
@@ -47,6 +65,15 @@ public abstract class Inamic {
 
     public void setY(int y) {
         this.y = y;
+        ybaza = y + h;
+    }
+
+    public void hitYa(int damage) {
+        viata -= (damage - armour);
+        if (viata <= 0 && !dead) {
+            dead = true;
+            Player.adaugaGold(sumaCastig);
+        }
     }
 
     public int getY() {
@@ -107,5 +134,17 @@ public abstract class Inamic {
 
     public int getDelay() {
         return delay;
+    }
+
+    public int getW(){
+        return w;
+    }
+
+    public int getH(){
+        return h;
+    }
+
+    public boolean isDead() {
+        return dead;
     }
 }

@@ -21,11 +21,11 @@ public class Animatie {
     private boolean visibleAfter;
 
 
-    Animatie(Bitmap framebuffer, Context context, String nume, int indW, int indH){
+    Animatie(Bitmap framebuffer, Context context, String nume, int indW, int indH, boolean fixed){
         this.framebuffer = framebuffer;
         this.context = context;
 
-        graphics = new Graphics(framebuffer, context);
+        graphics = new Graphics(framebuffer, context, fixed);
 
         this.indWMax = indW;
         this.indHMax = indH;
@@ -59,6 +59,7 @@ public class Animatie {
 
     public void start(){
         running = true;
+        visible = true;
         ind = 0;
         indWCurr = 0;
         indHcurr = 0;
@@ -82,6 +83,7 @@ public class Animatie {
     public boolean isRunning(){
         return running;
     }
+    public boolean isVisible() {return visible;}
 
     protected void onUpdate(){
         if (running == false)

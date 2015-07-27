@@ -18,16 +18,16 @@ public class Levels extends Screen {
         this.framebuffer = framebuffer;
         this.context = context;
 
-        graphics = new Graphics(framebuffer, context);
-        background = graphics.openImage("poze/backgroundLevels.png");
+        graphics = new Graphics(framebuffer, context, true);
+        background = graphics.openImage("meniu.png");
 
-        butonLevel1 = new Buton(framebuffer, "poze/meniu_buton.png", 100, 100, context);
+        butonLevel1 = new Buton(framebuffer, "buton_italia.png", Ecran.w/2 - Scaler.scale(700)/2, Scaler.scale(150), context, true);
     }
 
     @Override
     protected void onDraw() {
         graphics.resetCanvas();
-        graphics.drawImage(background, 0, 0, 0, 0, background.getW(), background.getH());
+        graphics.drawImage(background, (Scaler.scale(1920) - Ecran.w)/2, 0, 0, 0, background.getW(), background.getH());
         butonLevel1.paint();
     }
 

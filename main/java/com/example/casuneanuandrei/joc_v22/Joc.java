@@ -19,7 +19,7 @@ public class Joc extends Activity{
     private Start start;
     private Credits credits;
     private Levels levels;
-    private Level1 level1;
+    private Level level;
     private Shop shop;
     private Options options;
     private Help help;
@@ -41,6 +41,8 @@ public class Joc extends Activity{
         Ecran.w = size.x;
         Ecran.h = size.y;
 
+        CollisionDetector.init();
+
         Scaler.rap = (double) Ecran.h / 1080;
 
         framebuffer = Bitmap.createBitmap(Ecran.w, Ecran.h, Bitmap.Config.ARGB_8888);
@@ -52,7 +54,7 @@ public class Joc extends Activity{
         shop = new Shop(framebuffer, this);
         options = new Options(framebuffer, this);
         help = new Help (framebuffer, this);
-        level1 = new Level1(framebuffer, this);
+        level = new Level(framebuffer, this, "level1");
 
         screen = meniu;
         renderer = new Renderer(this, framebuffer);
@@ -91,7 +93,7 @@ public class Joc extends Activity{
             setScreen(meniu);
         else if (screen == levels || screen == shop || screen == options || screen == help)
             setScreen(start);
-        else if (screen == level1) {
+        else if (screen == level) {
             Offset.scale = 1.0f;
             setScreen(levels);
         }
@@ -101,8 +103,9 @@ public class Joc extends Activity{
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        scaleListener.onTouchEvent(event);
         int tip = screen.click(event);
+
+        scaleListener.onTouchEvent(event);
 
         if (tip == EventTypes.SCHIMBA_MENIU){
             setScreen(meniu);
@@ -111,23 +114,29 @@ public class Joc extends Activity{
             setScreen(start);
         }
         else if (tip == EventTypes.SCHIMBA_CREDITS){
-            setScreen(credits);
+            //setScreen(credits);
         }
         else if (tip == EventTypes.SCHIMBA_LEVELS){
             setScreen(levels);
         }
         else if (tip == EventTypes.SCHIMBA_SHOP){
-            setScreen(shop);
+            //setScreen(shop);
         }
         else if (tip == EventTypes.SCHIMBA_OPTIONS){
-            setScreen(options);
+            //setScreen(options);
         }
         else if (tip == EventTypes.SCHIMBA_HELP){
-            setScreen(help);
+            //setScreen(help);
         }
         else if (tip == EventTypes.SCHIMBA_LEVEL1){
             Offset.scale = 1.0f;
-            setScreen(level1);
+            //CollisionDetector.init();
+            //Player.gold = 500;
+            //Player.viata = 10;
+            //Player.isChanged = true;
+            //level1 = new Level1(framebuffer, this);
+            setScreen(level);
+            level.start();
         }
 
         return super.onTouchEvent(event);
@@ -137,11 +146,20 @@ public class Joc extends Activity{
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
-            if (screen != level1)
+            double wInainte, wDupa;
+            double hInainte, hDupa;
+            if (screen != level)
                 return true;
-            level1.handlePinchFocus(detector.getFocusX(), detector.getFocusY());
-            Offset.scale *= detector.getScaleFactor();
-            Offset.scale = Math.max(1.0f, Math.min(Offset.scale, 3.0f));
+            level.handlePinchFocus(detector.getFocusX(), detector.getFocusY());
+
+            wInainte = Ecran.w * Offset.scaleNext;
+            hInainte = Ecran.h * Offset.scaleNext;
+            Offset.scaleNext *= detector.getScaleFactor();
+            Offset.scaleNext = Math.max(Ecran.h / (1440 * (float) Ecran.h / 1080), Math.min(Offset.scaleNext, 2.0f));
+            wDupa = Ecran.w * Offset.scaleNext;
+            hDupa = Ecran.h * Offset.scaleNext;
+            Offset.valuexNext += -(wDupa - wInainte)/2;
+            Offset.valueyNext += -(hDupa - hInainte)/2;
             return true;
         }
     }

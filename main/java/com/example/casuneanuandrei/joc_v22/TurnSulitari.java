@@ -1,6 +1,5 @@
 package com.example.casuneanuandrei.joc_v22;
 
-import android.app.usage.UsageEvents;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -8,17 +7,15 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.MotionEvent;
 
-import java.util.concurrent.CancellationException;
-
-public class TurnArcasi extends Turn{
+public class TurnSulitari extends Turn {
     private Bitmap framebuffer;
     private Context context;
     private Graphics graphics;
 
     private Image imagine_spate, imagine_fata;
 
-    private int nr_arcasi;
-    private Arcas[] arcasi;
+    private int nr_sulitari;
+    private Sulitar[] sulitari;
     private int upgradeLevel;
     private int maxUpgradeLevel;
     private Buton butonTurn;
@@ -29,18 +26,18 @@ public class TurnArcasi extends Turn{
     private int cercW, cercH;
     private boolean cercVisible;
 
+    private int damage, attackSpeed;
+
+    private Image info;
+
     private int x, y;
     private int w, h;
 
     private int xbaza, ybaza;
 
-    private int damage, attackSpeed;
-
-    private Image info;
-
     private int radius;
 
-    TurnArcasi(Bitmap framebuffer, Context context, int xbaza, int ybaza){
+    TurnSulitari(Bitmap framebuffer, Context context, int xbaza, int ybaza){
         this.framebuffer = framebuffer;
         this.context = context;
 
@@ -48,8 +45,8 @@ public class TurnArcasi extends Turn{
         this.ybaza = ybaza;
 
         graphics = new Graphics(framebuffer, context, false);
-        imagine_spate = graphics.openImage("turn_arcas_spate.png");
-        imagine_fata = graphics.openImage("turn_arcas_fata.png");
+        imagine_spate = graphics.openImage("turn_sulitar_spate.png");
+        imagine_fata = graphics.openImage("turn_sulitar_fata.png");
 
         w = imagine_spate.getW();
         h = imagine_spate.getH();
@@ -60,14 +57,14 @@ public class TurnArcasi extends Turn{
         maxUpgradeLevel = 3;
         bUpgrade = new Buton[maxUpgradeLevel-1];
         upgradeCost = new int[maxUpgradeLevel];
-        upgradeCost[0] = 70;
-        upgradeCost[1] = 100;
+        upgradeCost[0] = 90;
+        upgradeCost[1] = 110;
 
-        bUpgrade[0] = new Buton(framebuffer, "upgrade_arcas0.png", x, y, context, false);
+        bUpgrade[0] = new Buton(framebuffer, "upgrade_sulitar0.png", x, y, context, false);
         bUpgrade[0].setActive(false);
         bUpgrade[0].setVisible(false);
 
-        bUpgrade[1] = new Buton(framebuffer, "upgrade_arcas1.png", x, y, context, false);
+        bUpgrade[1] = new Buton(framebuffer, "upgrade_sulitar1.png", x, y, context, false);
         bUpgrade[1].setActive(false);
         bUpgrade[1].setVisible(false);
 
@@ -75,12 +72,12 @@ public class TurnArcasi extends Turn{
         butonTurn.setActive(true);
 
 
-        arcasi = new Arcas[3];
+        sulitari = new Sulitar[3];
 
-        nr_arcasi=1;
-        arcasi[0] = new Arcas(framebuffer, context, xbaza, ybaza-h*2/3);
-        radius = Scaler.scale(500);
-        arcasi[0].setRadius(radius);
+        nr_sulitari=1;
+        sulitari[0] = new Sulitar(framebuffer, context, xbaza, ybaza-h*2/3);
+        radius = Scaler.scale(300);
+        sulitari[0].setRadius(radius);
 
 
         Bitmap aux = Bitmap.createBitmap(radius*2, radius*2, Bitmap.Config.ARGB_8888);
@@ -96,17 +93,18 @@ public class TurnArcasi extends Turn{
         cercH = cerc.getH();
         cercVisible = false;
 
-        damage = arcasi[0].getDamage();
-        attackSpeed = (int) arcasi[0].getAttackSpeed();
+        damage = sulitari[0].getDamage();
+        attackSpeed = (int) sulitari[0].getAttackSpeed();
         info = new Image(graphics.drawText("Damage "+ damage+"\n"+"AttackSpeed "+attackSpeed, Scaler.scale(300), Scaler.scale(45)));
+
     }
 
     @Override
     protected void onDraw() {
         int i;
         graphics.drawImage(imagine_spate, x, y, 0, 0, w, h);
-        for (i=0; i<nr_arcasi; i++)
-            arcasi[i].paint();
+        for (i=0; i<nr_sulitari; i++)
+            sulitari[i].paint();
         graphics.drawImage(imagine_fata, x, y, 0, 0, w, h);
 
         for (i = 0; i < maxUpgradeLevel-1; ++i){
@@ -125,8 +123,8 @@ public class TurnArcasi extends Turn{
             if (butonTurn.push((int)event.getX(), (int)event.getY()) && upgradeLevel < maxUpgradeLevel - 1){
                 butonTurn.setActive(false);
                 bUpgrade[upgradeLevel].setActive(true);
-                cercVisible = true;
                 bUpgrade[upgradeLevel].setVisible(true);
+                cercVisible = true;
                 return EventTypes.CLICK_PE_CEVA_TURN;
             }
             else if (butonTurn.push((int)event.getX(), (int)event.getY()) && upgradeLevel == 2){
@@ -141,9 +139,9 @@ public class TurnArcasi extends Turn{
                     Player.adaugaGold(-upgradeCost[upgradeLevel]);
 
                     upgradeLevel = 1;
-                    arcasi[1] = new Arcas(framebuffer, context, xbaza - Scaler.scale(25), ybaza-h*2/3);
-                    arcasi[1].setRadius(radius);
-                    ++nr_arcasi;
+                    sulitari[1] = new Sulitar(framebuffer, context, xbaza - Scaler.scale(25), ybaza-h*2/3);
+                    sulitari[1].setRadius(radius);
+                    ++nr_sulitari;
                     butonTurn.setActive(true);
                     cercVisible = false;
 
@@ -156,9 +154,9 @@ public class TurnArcasi extends Turn{
                     Player.adaugaGold(-upgradeCost[upgradeLevel]);
 
                     upgradeLevel = 2;
-                    arcasi[2] = new Arcas(framebuffer, context, xbaza + Scaler.scale(25), ybaza-h*2/3);
-                    arcasi[2].setRadius(radius);
-                    ++nr_arcasi;
+                    sulitari[2] = new Sulitar(framebuffer, context, xbaza + Scaler.scale(25), ybaza-h*2/3);
+                    sulitari[2].setRadius(radius);
+                    ++nr_sulitari;
                     butonTurn.setActive(true);
                     cercVisible = false;
                     bUpgrade[upgradeLevel-1].setActive(false);
@@ -182,8 +180,8 @@ public class TurnArcasi extends Turn{
     @Override
     protected void onUpdate() {
         int i;
-        for (i=0; i<nr_arcasi; i++)
-            arcasi[i].update();
+        for (i=0; i<nr_sulitari; i++)
+            sulitari[i].update();
     }
 
     @Override

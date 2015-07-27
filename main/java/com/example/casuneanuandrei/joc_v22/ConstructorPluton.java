@@ -35,6 +35,8 @@ public class ConstructorPluton {
         //int tip, delay;
         //int i, j, nr;
 
+        int delayAux;
+
         try {
             is = context.getAssets().open(nume);
             reader= new BufferedReader(new InputStreamReader(is));
@@ -51,7 +53,8 @@ public class ConstructorPluton {
                 plutoane[i] = new Pluton(Integer.parseInt(aux));
                 //delay
                 aux = reader.readLine();
-                plutoane[i].setDelay(Integer.parseInt(aux));
+                delayAux = Integer.parseInt(aux);
+                plutoane[i].setDelay(delayAux);
 
                 //drum
                 aux = reader.readLine();
@@ -67,8 +70,13 @@ public class ConstructorPluton {
                     tip = Integer.parseInt(date[0]);
                     delay = Integer.parseInt(date[1]);
 
+
                     switch (tip) {
-                        case 1: plutoane[i].setInamicPoz(new IItaliaLuptator(framebuffer, context, plutoane[i].getDrum()), j);
+                        case 1:
+                            plutoane[i].setInamicPoz(new IItaliaLuptator(framebuffer, context, plutoane[i].getDrum(), delay), j);
+                            break;
+                        case 2:
+                            break;
                     }
                 }
 

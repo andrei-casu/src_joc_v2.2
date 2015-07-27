@@ -5,8 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Point;
 import android.view.MotionEvent;
 
-public class IItaliaLuptator extends Inamic implements Collidable{
-
+public class IItaliaLupt2  extends Inamic implements Collidable{
     private Animatie animatie;
     private Animatie aStanga, aDreapta, aSus, aJos;
     private Miscare miscare;
@@ -18,12 +17,11 @@ public class IItaliaLuptator extends Inamic implements Collidable{
 
     static final int SUS = 0, STANGA = 1, JOS = 2, DREAPTA = 3;
 
-    public IItaliaLuptator(Bitmap framebuffer, Context context, Drum drum, int delay){
+    public IItaliaLupt2(Bitmap framebuffer, Context context, Drum drum, int delay){
         this.framebuffer = framebuffer;
         this.context = context;
         this.drum=drum;
         this.delay = delay;
-        this.numeFolder = numeFolder;
 
         viteza = Scaler.scale(50);
 
@@ -37,6 +35,8 @@ public class IItaliaLuptator extends Inamic implements Collidable{
         x = drum.getPoint(0).x;
         y = drum.getPoint(0).y;
 
+        numeFolder = "level1/";
+
         /*animatie = new Animatie(framebuffer, context, nume, 3, 2);
         animatie.setSpeedAnim(5);
         animatie.setLooping(true);
@@ -45,14 +45,14 @@ public class IItaliaLuptator extends Inamic implements Collidable{
         animatie.start();
         animatie.setVisible(true);*/
 
-        aJos = new Animatie(framebuffer, context, "luptator.png", 3, 2, false);
+        aJos = new Animatie(framebuffer, context, numeFolder+"luptator.png", 3, 2, false);
         aJos.setSpeedAnim(5);
         aJos.setX(x);
         aJos.setY(y);
         aJos.setVisible(true);
         aJos.setLooping(true);
 
-        aSus = new Animatie(framebuffer, context, "luptator.png", 3, 2, false);
+        aSus = new Animatie(framebuffer, context, numeFolder+"luptator.png", 3, 2, false);
         aSus.setSpeedAnim(5);
         aSus.setX(x);
         aSus.setY(y);
@@ -184,7 +184,6 @@ public class IItaliaLuptator extends Inamic implements Collidable{
                 //la drum trebuie sa adaug 2 puncte
             }
         }
-        //if ()
     }
 
     @Override

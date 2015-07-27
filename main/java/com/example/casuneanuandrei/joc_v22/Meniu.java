@@ -17,19 +17,19 @@ public class Meniu extends Screen{
 
     public Meniu(Bitmap framebuffer, Context context){
         super();
-        graphics = new Graphics(framebuffer, context);
+        graphics = new Graphics(framebuffer, context, true);
         this.framebuffer = framebuffer;
-        background = graphics.openImage("poze/background.jpg");
+        background = graphics.openImage("meniu.png");
         this.context = context;
 
-        butonStart = new Buton(framebuffer, "poze/meniu_buton.png", 0, 0, context);
-        butonCredits = new Buton(framebuffer, "poze/meniu_buton.png", 0, 100, context);
+        butonStart = new Buton(framebuffer, "start.png", Ecran.w/2 - Scaler.scale(595)/2, Scaler.scale(120), context, true);
+        butonCredits = new Buton(framebuffer, "credits.png", Ecran.w/2 - Scaler.scale(445)/2, Scaler.scale(420), context, true);
     }
 
     @Override
     protected void onDraw() {
         graphics.resetCanvas();
-        graphics.drawImage(background, 0, 0, 0, 0, background.getW(), background.getH());
+        graphics.drawImage(background, -(Scaler.scale(1920) - Ecran.w)/2, 0, 0, 0, background.getW(), background.getH());
         butonStart.paint();
         butonCredits.paint();
     }

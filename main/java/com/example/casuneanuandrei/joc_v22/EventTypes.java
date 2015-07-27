@@ -16,6 +16,9 @@ public final class EventTypes {
 
     public static int SCHIMBA_LEVEL1 = 8;
 
+    public static int MOVING = 9;
+    public static int CLICK_PE_CEVA_TURN = 10;
+
     private void EventTypes(){
 
     }

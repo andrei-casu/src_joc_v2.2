@@ -17,7 +17,7 @@ public class Options extends Screen{
         this.framebuffer = framebuffer;
         this.context = context;
 
-        graphics = new Graphics(framebuffer, context);
+        graphics = new Graphics(framebuffer, context, true);
         background = graphics.openImage("poze/background.jpg");
     }
 

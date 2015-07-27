@@ -9,8 +9,8 @@ public abstract class Sageata {
     protected Bitmap framebuffer;
     protected Context context;
 
-    protected int xstart, ystart;
     protected Inamic inamic;
+    protected String nume;
 
     public Sageata(){
 
@@ -19,6 +19,9 @@ public abstract class Sageata {
     public void paint(){
         onDraw();
     }
+
+    public abstract int getAngle();
+
     public int click(MotionEvent event){
         return onTouch(event);
     }

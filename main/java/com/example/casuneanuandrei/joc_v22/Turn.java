@@ -20,4 +20,6 @@ public abstract class Turn {
     protected abstract void onDraw();
     protected abstract int onTouch(MotionEvent event);
     protected abstract void onUpdate();
+
+    protected abstract void inchide();
 }

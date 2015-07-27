@@ -12,9 +12,14 @@ public class Updater {
             int ti, tf;
             while (running){
                 ti = (int) System.currentTimeMillis();
-                joc.update();
+                Ecran.updating = true;
+                if (!Player.pause)
+                    joc.update();
+                Ecran.updating = false;
                 tf = (int) System.currentTimeMillis();
 
+
+                CollisionDetector.checkCollisions();
 
                 if ((wait - (tf - ti)) > 0)
                 try {

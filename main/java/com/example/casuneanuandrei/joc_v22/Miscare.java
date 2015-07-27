@@ -81,11 +81,17 @@ public class Miscare {
             my = Math.sqrt(Math.abs(viteza * viteza - mx * mx));
         }
 
+        if (mx > viteza)
+            mx = 0;
+        if (my > viteza)
+            my = 0;
+
         xCurr += semnx * mx;
         yCurr += semny * my;
 
-        if (Math.abs(xCurr - xDest) <= 2 && Math.abs(yCurr - yDest) <= 2)
+        if (Math.abs(xCurr - xDest) <= 6 && Math.abs(yCurr - yDest) <= 6)
             running = false;
+
     }
 
     public void update(){

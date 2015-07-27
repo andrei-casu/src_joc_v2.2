@@ -17,14 +17,14 @@ public class Credits extends Screen{
         this.framebuffer = framebuffer;
         this.context = context;
 
-        graphics = new Graphics(framebuffer, context);
+        graphics = new Graphics(framebuffer, context, true);
         background = graphics.openImage("poze/background.jpg");
     }
 
     @Override
     protected void onDraw() {
         graphics.resetCanvas();
-        graphics.drawImage(background, 0, 0, 0, 0, background.getW(), background.getH());
+        graphics.drawImage(background, -(Scaler.scale(1920) - Ecran.w)/2, 0, 0, 0, background.getW(), background.getH());
     }
 
     @Override

@@ -4,9 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.view.MotionEvent;
 
-public class SageataDreapta extends Sageata{
-
-    //private Animatie animatie;
+public class Ghiulea extends Sageata {
     private Image image;
     private Miscare miscare;
     private Graphics graphics;
@@ -24,7 +22,7 @@ public class SageataDreapta extends Sageata{
 
     private int lgx, lgy;
 
-    public SageataDreapta(Bitmap framebuffer, Context context, int x, int y, Inamic inamic){
+    public Ghiulea(Bitmap framebuffer, Context context, int x, int y, Inamic inamic){
         this.framebuffer = framebuffer;
         this.context = context;
         this.nume = nume;
@@ -38,7 +36,7 @@ public class SageataDreapta extends Sageata{
         ystop = inamic.getY() + inamic.getH()/2 - h/2;
 
         graphics = new Graphics(framebuffer, context, false);
-        image = graphics.openImage("sageata.png");
+        image = graphics.openImage("ghiulea.png");
         visible = true;
         w = image.getW();
         h = image.getH();

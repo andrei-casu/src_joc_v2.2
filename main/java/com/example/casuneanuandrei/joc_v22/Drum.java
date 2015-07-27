@@ -12,7 +12,14 @@ public class Drum {
 
     private int lg; //0 pana la lg-1
     private Point drum[];
+    private Context context;
 
+    public Drum(Context context, int lg){
+        //nu fac aproape nimic pentru ca o sa adaug mai incolo\
+        this.context = context;
+
+        drum = new Point[lg];
+    }
 
     public Drum(Context context, String nume) {
 
@@ -50,5 +57,19 @@ public class Drum {
 
     public Point getPoint (int ind){
         return drum[ind];
+    }
+
+    public void addPoint(Point point, int poz){//poz e -1 daca nu am nimic
+        if (poz == -1) {
+            poz = lg++;
+            drum[poz] = point;
+        }
+        else {
+            lg++;
+            int i;
+            for (i = poz + 1; i < lg; ++i)
+                drum[i] = drum[i - 1];
+            drum[poz] = point;
+        }
     }
 }

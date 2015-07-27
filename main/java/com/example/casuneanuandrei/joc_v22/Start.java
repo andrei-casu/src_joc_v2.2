@@ -19,21 +19,21 @@ public class Start extends Screen{
 
     public Start(Bitmap framebuffer, Context context){
         super();
-        graphics = new Graphics(framebuffer, context);
+        graphics = new Graphics(framebuffer, context, true);
         this.framebuffer = framebuffer;
-        background = graphics.openImage("poze/background.jpg");
+        background = graphics.openImage("meniu.png");
         this.context = context;
 
-        butonLevels = new Buton(framebuffer, "poze/meniu_buton.png", 0, 0, context);
-        butonShop = new Buton(framebuffer, "poze/meniu_buton.png", 0, 30, context);
-        butonOptions = new Buton(framebuffer, "poze/meniu_buton.png", 0, 60, context);
-        butonHelp = new Buton(framebuffer, "poze/meniu_buton.png", 0, 90, context);
+        butonLevels = new Buton(framebuffer, "buton_levels.png", Ecran.w/2 - Scaler.scale(445)/2, Scaler.scale(50), context, true);
+        butonShop = new Buton(framebuffer, "buton_shop.png", Ecran.w/2 - Scaler.scale(445)/2, Scaler.scale(250), context, true);
+        butonOptions = new Buton(framebuffer, "buton_options.png", Ecran.w/2 - Scaler.scale(445)/2, Scaler.scale(450), context, true);
+        butonHelp = new Buton(framebuffer, "buton_help.png", Ecran.w/2 - Scaler.scale(445)/2, Scaler.scale(650), context, true);
     }
 
     @Override
     protected void onDraw() {
         graphics.resetCanvas();
-        graphics.drawImage(background, 0, 0, 0, 0, background.getW(), background.getH());
+        graphics.drawImage(background, -(Scaler.scale(1920) - Ecran.w)/2, 0, 0, 0, background.getW(), background.getH());
         butonLevels.paint();
         butonShop.paint();
         butonOptions.paint();
